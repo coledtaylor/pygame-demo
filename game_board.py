@@ -49,6 +49,11 @@ class CoordinatePlane:
 
     def handle_mouse_down(self, pos, button, gui_manager, user):
         if button == 1:
+
+            if event.type == pygame_gui.UI_WINDOW_CLOSE and event.ui_element == gui_manager.info_window:
+                gui_manager.info_window.hide()
+                return
+
             x = pos[0] // GRID_SIZE - 1
             y = pos[1] // GRID_SIZE - 2
 
@@ -103,13 +108,16 @@ class Cell:
     def draw(self, screen):
         x_pos, y_pos = self.position
         outline_color = (0, 0, 0)
-        overlay_color = (0, 0, 0, 150)  # Darkened overlay color with transparency
+        # Darkened overlay color with transparency
+        overlay_color = (0, 0, 0, 150)
 
         rect = pygame.Rect(x_pos, y_pos, GRID_SIZE, GRID_SIZE)
         pygame.draw.rect(screen, outline_color, rect, 1)  # Draw outline
 
-        inner_rect = pygame.Rect(x_pos + 1, y_pos + 1, GRID_SIZE - 2, GRID_SIZE - 2)
-        pygame.draw.rect(screen, self.get_color_by_resource(self.resource), inner_rect)
+        inner_rect = pygame.Rect(x_pos + 1, y_pos + 1,
+                                 GRID_SIZE - 2, GRID_SIZE - 2)
+        pygame.draw.rect(screen, self.get_color_by_resource(
+            self.resource), inner_rect)
 
         if not self.user:
             overlay_rect = pygame.Surface(

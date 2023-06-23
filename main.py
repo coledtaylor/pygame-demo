@@ -33,7 +33,8 @@ while running:
         if event.type == pygame.MOUSEBUTTONDOWN:
             pos = pygame.mouse.get_pos()
             button = pygame.mouse.get_pressed()
-            coordinate_plane.handle_mouse_down(pos, button[0], gui_manager, user)
+            coordinate_plane.handle_mouse_down(
+                pos, button[0], gui_manager, user)
 
     coordinate_plane.update(time_delta)
     gui_manager.update(time_delta)
